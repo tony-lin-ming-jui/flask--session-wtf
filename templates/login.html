@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"-->
+<html>
+<head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+				<div class="container-fluid"><!-- container-fluid有-fluid左右會沒空繫,沒ㄉ話則有空繫-->
+				  <!-- Brand and toggle get grouped for better mobile display -->
+				  <div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					  <span class="sr-only">Toggle navigation</span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					</button>
+
+				  </div>
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+				<li class="active"><a href="/">首頁 <span class="sr-only">(current)</span></a></li>
+				<li><a href="{{url_for('xxx')}}">xxx頁面</a></li>				
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
+
+	{% if name %}
+	<li><a href="#">{{name}}</a></li>
+	<li><a href="{{url_for('logout')}}">登出</a></li>
+
+{% else %}
+
+	<li><a href="{{url_for('login')}}">登錄</a></li>
+	<li><a href="#">註冊</a></li>
+	
+{% endif %}
+		</ul>
+	</div>
+	</div>
+</nav>
+	<form action=""method="post">
+	{{ form.csrf_token }}
+	<div class="form-container">
+			<h1 class= "page-title">登錄</h1>
+		<div class="form-group">
+		{{form.name.label}}
+		{{ form.name(class="form-control",placeholder="請輸入用戶名") }}
+		{% for error in form.name.errors %}
+				<li style="color:red;">{{ error }}</li>
+				{% endfor %}
+	</div> 
+		<div class="form-group">
+		{{form.password.label}}
+		{{ form.password(class="form-control",placeholder="請輸入密碼") }}
+		{% for error in form.password.errors %}
+				<li style="color:red;">{{ error }}</li>
+				{% endfor %}
+	</div>
+
+
+	<div class="form-group">
+			{% for message in get_flashed_messages() %}  
+			<li style="color:red;">{{ message }}</li>  
+			{% endfor %}  
+			</div>
+		
+
+
+
+		<div class="form-group">
+				{{form.submit(class="btn btn-primary btn-lg btn-block")}}
+	</div>
+</div>
+	</form>
+	
+
+		
+</body>
+</html>
